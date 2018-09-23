@@ -1,0 +1,23 @@
+{
+  "name": "javascript-adapter",
+  "version": "1.0.0",
+  "description": "f",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stacc-dasso/Javascript-Adapter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stacc-dasso/Javascript-Adapter/issues"
+  },
+  "homepage": "https://github.com/stacc-dasso/Javascript-Adapter#readme"
+}
