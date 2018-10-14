@@ -2,7 +2,7 @@ import re
 import time
 
 from scrapy.linkextractors import LinkExtractor
-from scrapy.loader import XPathItemLoader
+from scrapy.loader import XPathItemLoader, ItemLoader
 from scrapy.loader.processors import MapCompose, TakeFirst
 from scrapy.selector import HtmlXPathSelector, Selector
 from scrapy.spiders import CrawlSpider, Rule
@@ -10,7 +10,8 @@ from scrapy.spiders import CrawlSpider, Rule
 from scraper.items import MagentoItem
 
 
-class MagentoLoader(XPathItemLoader):
+class MagentoLoader(ItemLoader):
+    default_item_class = MagentoItem
     default_input_processor = MapCompose(lambda s: re.sub("\s+", " ", s.strip()))
     default_output_processor = TakeFirst()
 
@@ -35,23 +36,12 @@ class MagentoSpider(CrawlSpider):
     # ]
 
     def parse(self, response):
-        item = MagentoItem()
-        product = Selector(response).xpath("//div[@class='product-essential']")
+        loader = MagentoLoader(response=response)
 
-        item["name"] = product.xpath("//div[@class='product-name']/span/text()").extract_first()
-        item["timestamp"] = str(int(time.time()))
-        item["shop_id"] = "magento"
-
-        price = product.xpath("//span[@class='regular-price']/span[@class='price']/text() | //p[@class='special-price']/span[@class='price']/text()").extract_first()
-        price = price.strip()
-        if "€" in price:
-            item["currency"] = "euro"
-        elif "$" in price:
-            item["currency"] = "dollar"
-        else:
-            item["currency"] = price[0]
-        item["price"] = price[1:]
-
-        item_id = product.xpath("form/@action").extract_first()
-        item["item_id"] = re.search("/product/(\d+?)/form_key/", item_id).group(1)
-        yield item
+        loader.add_xpath("name", "//div[@class='product-essential']//div[@class='product-name']/span/text()")
+        loader.add_xpath("currency", "//div[@class='product-essential']//span[@class='regular-price']/span[@class='price']/text() | //p[@class='special-price']/span[@class='price']/text()")
+        loader.add_xpath("price", "//div[@class='product-essential']//span[@class='regular-price']/span[@class='price']/text() | //p[@class='special-price']/span[@class='price']/text()")
+        loader.add_xpath("item_id", "//div[@class='product-essential']//form/@action")
+        loader.add_value("timestamp", str(int(time.time())))
+        loader.add_value("shop_id", "magento")
+        return loader.load_item()

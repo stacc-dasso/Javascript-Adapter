@@ -7,6 +7,6 @@
 
 
 class ScraperPipeline(object):
-    #TODO: Save data to MongoDB
+    # TODO 3rd iteration: Save data to MongoDB
     def process_item(self, item, spider):
         return item
