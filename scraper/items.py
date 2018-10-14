@@ -14,18 +14,10 @@ def parse_currency(xpath_output):
     return xpath_output[0]
 
 
-def parse_price(xpath_output):
-    return xpath_output.strip()[1:]
-
-
-def parse_item_id(xpath_output):
-    return re.search("/product/(\d+?)/form_key/", xpath_output).group(1)
-
-
 class MagentoItem(Item):
     name = Field()
     timestamp = Field()
     currency = Field(input_processor=MapCompose(parse_currency))
-    price = Field(input_processor=MapCompose(parse_price))
+    price = Field(input_processor=MapCompose(lambda x: x.strip()[1:]))
     shop_id = Field()
-    item_id = Field(input_processor=MapCompose(parse_item_id))
+    item_id = Field(input_processor=MapCompose(lambda x: re.search("/product/(\d+?)/form_key/", x).group(1)))
