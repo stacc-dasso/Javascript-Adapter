@@ -1,19 +1,12 @@
 # -*- coding: utf-8 -*-
 
-# Define here the models for your scraped items
-#
-# See documentation in:
-# https://doc.scrapy.org/en/latest/topics/items.html
-import time
-
 from scrapy import Item, Field
 
 
 class MagentoItem(Item):
     name = Field()
-    timestamp = str(int(time.time()))
+    timestamp = Field()
     currency = Field()
     price = Field()
-    shop_id = "magento"
+    shop_id = Field()
     item_id = Field()
-

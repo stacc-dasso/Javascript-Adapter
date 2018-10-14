@@ -1,4 +1,5 @@
 import re
+import time
 
 from scrapy.linkextractors import LinkExtractor
 from scrapy.loader import XPathItemLoader
@@ -17,26 +18,40 @@ class MagentoLoader(XPathItemLoader):
 class MagentoSpider(CrawlSpider):
     name = "magento"
     allowed_domains = ["local.magento"]
-    start_urls = ["http://local.magento/"]
-
-    rules = [
-        #TODO: Setup rule for link redirect
-        Rule(LinkExtractor(restrict_xpaths="//div[@class='pager fl']/a"), follow=True, callback="parse_info")
+    start_urls = [
+        # "http://local.magento/women.html",
+        # "http://local.magento/men.html",
+        # "http://local.magento/accessories.html",
+        # "http://local.magento/home-decor.html",
+        # "http://local.magento/sale.html",
+        # "http://local.magento/vip.html"
+        "http://local.magento/lafayette-convertible-dress.html",
+        "http://local.magento/vip/rolls-travel-wallet.html",
+        "http://local.magento/sale/home-decor/park-row-throw.html"
     ]
 
-    # def parse(self, response):
-    #     hxs = HtmlXPathSelector(response)
-    #
-    #     loader = MagentoLoader(MagentoItem(), hxs)
-    #     loader.add_xpath('name', '/html/body/div[1]/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/ul/li[1]/div/h3/a')
-    #     loader.add_xpath('price', '/html/body/div[1]/div[2]/div[2]/div/div/div[2]/div[2]/div[2]/ul/li[1]/div/div[1]/span/span')
-    #     return loader.load_item()
+    # rules = [
+    #     Rule(LinkExtractor(restrict_xpaths="//div[@class='pager fl']/a"), follow=True, callback="parse_info")
+    # ]
 
-    def parse_info(self, response):
-        products = Selector(response).xpath("//div[@class='widget-products']")
+    def parse(self, response):
+        item = MagentoItem()
+        product = Selector(response).xpath("//div[@class='product-essential']")
 
-        for product in products:
-            item = MagentoItem()
-            item['name'] = product.xpath('a[@class="question-hyperlink"]/text()').extract()[0]
-            item['price'] = product.xpath('a[@class="question-hyperlink"]/@href').extract()[0]
-            yield item
+        item["name"] = product.xpath("//div[@class='product-name']/span/text()").extract_first()
+        item["timestamp"] = str(int(time.time()))
+        item["shop_id"] = "magento"
+
+        price = product.xpath("//span[@class='regular-price']/span[@class='price']/text() | //p[@class='special-price']/span[@class='price']/text()").extract_first()
+        price = price.strip()
+        if "€" in price:
+            item["currency"] = "euro"
+        elif "$" in price:
+            item["currency"] = "dollar"
+        else:
+            item["currency"] = price[0]
+        item["price"] = price[1:]
+
+        item_id = product.xpath("form/@action").extract_first()
+        item["item_id"] = re.search("/product/(\d+?)/form_key/", item_id).group(1)
+        yield item

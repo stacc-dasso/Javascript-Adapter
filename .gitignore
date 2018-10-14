@@ -7,3 +7,6 @@ out
 .DS_Store
 Thumbs.db
 [Dd]esktop.ini
+
+### Python scrape output
+items.csv
