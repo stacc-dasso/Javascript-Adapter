@@ -4,11 +4,16 @@
 #
 # See documentation in:
 # https://doc.scrapy.org/en/latest/topics/items.html
+import time
 
-import scrapy
+from scrapy import Item, Field
 
 
-class ScraperItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class MagentoItem(Item):
+    name = Field()
+    timestamp = str(int(time.time()))
+    currency = Field()
+    price = Field()
+    shop_id = "magento"
+    item_id = Field()
+
