@@ -17,5 +17,5 @@ class MagentoPipeline(object):
         if item["item_id"] in self.ids_seen:
             raise DropItem("Duplicate item found: %s" % item)
         else:
-            self.ids_seen.add(item['id'])
+            self.ids_seen.add(item["item_id"])
             return item
