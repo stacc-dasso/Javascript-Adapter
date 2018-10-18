@@ -1,4 +1,5 @@
-##Javascript Adapter
+## Javascript Adapter
+Link to example magento store with adapter: http://178.62.113.8/
 
 Link to wiki home: https://github.com/stacc-dasso/Javascript-Adapter/wiki
 
