@@ -1,6 +1,6 @@
 var username = 'testuser';
 var password = '41366860726384';
-var api_url = document.location.origin+":5678/api/v2";
+var api_url = document.location.origin+":5678/api/v2/";
 var stacc_id = "1234567";
 var website = "local.magento";
 
