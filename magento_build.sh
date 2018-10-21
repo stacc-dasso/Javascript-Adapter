@@ -25,4 +25,5 @@ docker-compose up -d
 docker exec -it stacc_dasso_apache2_php5.4_magento1 install-sampledata
 docker exec -it stacc_dasso_apache2_php5.4_magento1 install-magento
 docker exec stacc_dasso_apache2_php5.4_magento1 bash -c "cd /var/www/html/js;apt-get update; apt-get install -y git; git clone https://github.com/stacc-dasso/Javascript-Adapter.git"
-docker cp /docker/page.xml stacc_dasso_apache2_php5.4_magento1:/var/www/html/app/design/frontend/rwd/layout
+docker cp /docker/page.xml stacc_dasso_apache2_php5.4_magento1:/var/www/html/app/design/frontend/rwd/layout/
+docker exec stacc_dasso_apache2_php5.4_magento1 bash -c "cd /var/www/html/var;rm -r cache; mkdir cache chmod 777 cache; exit"
