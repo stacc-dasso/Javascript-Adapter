@@ -24,5 +24,5 @@ sed -i 's,MAGENTO_URL=.*,'"MAGENTO_URL=http://$local_server"',' env
 docker-compose up -d
 docker exec -it stacc_dasso_apache2_php5.4_magento1 install-sampledata
 docker exec -it stacc_dasso_apache2_php5.4_magento1 install-magento
-docker exec stacc_dasso_apache2_php5.4_magento1 bash -c "cd /var/www/html/js;apt-get update; apt-get install -y git; git clone https://github.com/stacc-dasso/Javascript-Adapter.git"
+docker exec stacc_dasso_apache2_php5.4_magento1 bash -c "cd /var/www/html/js;apt-get update; apt-get install -y git; git clone https://github.com/stacc-dasso/Javascript-Adapter.git stacc-adapter"
 docker cp /docker/page.xml stacc_dasso_apache2_php5.4_magento1:/var/www/html/app/design/frontend/rwd/default/layout/
