@@ -20,6 +20,7 @@ sshpass -p jsadapter ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/
 
 
 cd /docker
+sed -i 's,MAGENTO_URL=.*,'"MAGENTO_URL=http://$local_server"',' env
 docker-compose up -d
 docker exec -it stacc_dasso_apache2_php5.4_magento1 install-sampledata
 docker exec -it stacc_dasso_apache2_php5.4_magento1 install-magento
