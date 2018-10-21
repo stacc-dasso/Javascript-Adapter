@@ -2,6 +2,7 @@
 
 ### Sample magento store with adapter: http://178.62.113.8/  
 ### Mockup API is up on: http://104.248.248.147/  
+### To set up the store and API on another server, just run the build script (magento_build.sh) in the server. This sets up both the store and the API (on port 5678).
 
 From the store, all search events and clicking on an item events are sent to API.
 
