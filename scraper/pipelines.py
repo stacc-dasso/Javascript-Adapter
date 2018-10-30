@@ -4,9 +4,11 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-from scrapy.exceptions import DropItem
 import pymongo
+
+from scrapy.exceptions import DropItem
 from scraper import settings
+from scrapy import log
 
 class MagentoPipeline(object):
 
@@ -20,8 +22,13 @@ class MagentoPipeline(object):
 
     # TODO 3rd iteration: Save data to MongoDB
     def process_item(self, item, spider):
-        if item["item_id"] in self.ids_seen:
-            raise DropItem("Duplicate item found: %s" % item)
-        else:
-            self.ids_seen.add(item["item_id"])
-            return item
+        valid = True
+        for data in item:
+            if not data:
+                valid = False
+                raise DropItem("Missing {0}!".format(data))
+        if valid:
+            self.collection.insert(dict(item))
+            log.msg("Item added to MongoDB database!",
+                    level=log.DEBUG, spider=spider)
+        return item
