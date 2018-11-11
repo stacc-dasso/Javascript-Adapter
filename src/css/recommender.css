@@ -1,0 +1,28 @@
+.recommender_box {
+    border: 1px solid #cccccc;
+}
+
+.recommender_box_title {
+    text-align: center;
+    padding-top: 1%;
+}
+
+.products_box {
+    display: flex;
+    justify-content: space-between;
+    padding: 2% 2%;
+}
+
+.product-name {
+    font-weight: 500 !important;
+}
+
+.recommended_product {
+    width: 20%;
+    word-wrap: break-word;
+}
+
+.recommended_product .recommended_product_text{
+    text-align: center;
+    padding-top: 4%;
+}

@@ -34,7 +34,9 @@ window.onload = function(){
 
 		var product_view = addToCartForm.parentElement.parentElement;
 		var rec_node = recommender_box(id);
-		product_view.parentElement.insertBefore(rec_node, product_view.nextElementSibling);
+		setTimeout(function() {
+			product_view.parentElement.insertBefore(box_node, product_view.nextElementSibling);
+		}, 2000);
 	}
 };
 
