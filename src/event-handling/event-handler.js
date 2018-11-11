@@ -29,9 +29,12 @@ window.onload = function(){
 		send_view_request(id);
 
 		addToCartForm.getElementsByClassName("btn-cart")[0].addEventListener('click',function() {
-			console.log("submitted");
 			send_addtocart_request(id);
 		});
+
+		var product_view = addToCartForm.parentElement.parentElement;
+		var rec_node = recommender_box(id);
+		product_view.parentElement.insertBefore(rec_node, product_view.nextElementSibling);
 	}
 };
 
