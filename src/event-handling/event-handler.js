@@ -29,9 +29,23 @@ window.onload = function(){
 		send_view_request(id);
 
 		addToCartForm.getElementsByClassName("btn-cart")[0].addEventListener('click',function() {
-			console.log("submitted");
 			send_addtocart_request(id);
 		});
+
+		var product_view = addToCartForm.parentElement.parentElement;
+		var rec_node = recommender_box(id);
+		setTimeout(function() {
+			product_view.parentElement.insertBefore(box_node, product_view.nextElementSibling);
+		}, 2000);
+	}
+
+	var main_page_new_products = document.getElementsByClassName("widget-new-products")[0];
+	if (main_page_new_products) {
+		var rec_node = recommender_box("1");
+		setTimeout(function() {
+			console.log(box_node);
+			main_page_new_products.parentElement.insertBefore(box_node, main_page_new_products.nextElementSibling);
+		}, 2000);
 	}
 };
 

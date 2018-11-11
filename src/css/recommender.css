@@ -1,0 +1,36 @@
+.recommender_box {
+    border: 1px solid #cccccc;
+}
+
+.recommender_box_title {
+    text-align: center;
+    padding-top: 1%;
+}
+
+.products_box {
+    display: flex;
+    justify-content: space-between;
+    padding: 2% 2%;
+    flex-wrap: wrap;
+}
+
+.product-name {
+    font-weight: 500 !important;
+}
+
+.recommended_product {
+    word-wrap: break-word;
+}
+
+.recommended_product img {
+    display: block;
+    max-width: 210px;
+    max-height: 210px;
+    width: auto;
+    height: auto;
+}
+
+.recommended_product .recommended_product_text{
+    text-align: center;
+    padding-top: 4%;
+}

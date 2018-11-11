@@ -4,6 +4,8 @@ var api_url = document.location.origin+":5678/api/v2/";
 var stacc_id = "1234567";
 var website = "local.magento";
 
+var recs = {}
+
 /**
  * Method for sending search event to API
  * @param {String} query
@@ -36,6 +38,11 @@ function send_view_request(item_id,properties={}) {
     send_api_request(request_params, 'send_view');
 }
 
+/**
+ * Method for sending add to cart events
+ * @param {String} item_id 
+ * @param {Object} properties 
+ */
 function send_addtocart_request(item_id, properties={}) {
     var request_params = {
         'item_id': item_id,
@@ -57,8 +64,22 @@ function send_api_request(request_params,endpoint) {
     request.setRequestHeader("Authorization", "Basic " + btoa(username+":"+password));
 
     request.onload = function () {
-        console.log(this.response);
+        if (endpoint === 'get_recs') {
+            recs = JSON.parse(this.response);
+        };
+        return this.response;
     }
 
     request.send(JSON.stringify(request_params));
+}
+
+function get_recommendations(item_id, properties={}) {
+    var request_params = {
+        'item_id': item_id,
+        'properties': properties,
+        'stacc_id': stacc_id,
+        'website': website,
+        'block_id':1
+    };
+    send_api_request(request_params, 'get_recs');
 }
