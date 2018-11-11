@@ -8,21 +8,6 @@ window.onload = function(){
 		});
 	}
 
-	// Sending view event right after clicking
-
-
-	/* 
-	var itemsArray = document.getElementsByClassName("item");
-	if (itemsArray) {
-		for (var i = 0; i < itemsArray.length; i++) {
-			itemsArray[i].addEventListener('click', function(e) {
-				var item_id = e.target.closest(".item").querySelector("a").href.split("-").pop().replace(".html","");
-				send_view_request(item_id);
-			});
-		};
-	}
-	*/
-
 	var addToCartForm = document.getElementById('product_addtocart_form');
 	if (addToCartForm) {
 		var id = addToCartForm.getElementsByClassName("no-display")[0].firstElementChild.value;

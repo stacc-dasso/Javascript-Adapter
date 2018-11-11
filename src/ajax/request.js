@@ -73,6 +73,11 @@ function send_api_request(request_params,endpoint) {
     request.send(JSON.stringify(request_params));
 }
 
+/**
+ * Method for getting recommendations
+ * @param {String} item_id 
+ * @param {Object} properties 
+ */
 function get_recommendations(item_id, properties={}) {
     var request_params = {
         'item_id': item_id,
