@@ -36,6 +36,16 @@ function send_view_request(item_id,properties={}) {
     send_api_request(request_params, 'send_view');
 }
 
+function send_addtocart_request(item_id, properties={}) {
+    var request_params = {
+        'item_id': item_id,
+        'properties': properties,
+        'stacc_id': stacc_id,
+        'website': website,
+    };
+    send_api_request(request_params, 'send_add_to_cart');
+}
+
 /**
  * 
  * @param {Object} request_params 

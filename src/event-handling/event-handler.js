@@ -8,6 +8,10 @@ window.onload = function(){
 		});
 	}
 
+	// Sending view event right after clicking
+
+
+	/* 
 	var itemsArray = document.getElementsByClassName("item");
 	if (itemsArray) {
 		for (var i = 0; i < itemsArray.length; i++) {
@@ -17,15 +21,18 @@ window.onload = function(){
 			});
 		};
 	}
-	
+	*/
+
 	var addToCartForm = document.getElementById('product_addtocart_form');
 	if (addToCartForm) {
-		addToCartForm.addEventListener('submit',function(e) {
-			e.preventDefault();
-			console.log(e);
+		var id = addToCartForm.getElementsByClassName("no-display")[0].firstElementChild.value;
+		send_view_request(id);
+
+		addToCartForm.getElementsByClassName("btn-cart")[0].addEventListener('click',function() {
+			console.log("submitted");
+			send_addtocart_request(id);
 		});
 	}
-
 };
 
 
