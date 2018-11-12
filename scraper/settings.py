@@ -17,6 +17,13 @@ NEWSPIDER_MODULE = 'scraper.spiders'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = 'scraper (+http://www.yourdomain.com)'
 
+ITEM_PIPELINES = {'magento.pipelines.MagentoPipeline':300}
+
+MONGODB_SERVER = "localhost"
+MONGODB_PORT = 27017
+MONGODB_DB = "magento"
+MONGODB_COLLECTION = "items"
+
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
