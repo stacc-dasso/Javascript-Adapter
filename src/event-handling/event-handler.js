@@ -32,6 +32,15 @@ window.onload = function(){
 			main_page_new_products.parentElement.insertBefore(box_node, main_page_new_products.nextElementSibling);
 		}, 2000);
 	}
+
+	var checkout_button = document.getElementsByClassName("btn-checkout")[0];
+	if (checkout_button) {
+		checkout_button.addEventListener("click", function(e) {
+			send_checkout_request();
+			e.preventDefault();
+		});
+	}
+
 };
 
 

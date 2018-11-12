@@ -54,6 +54,22 @@ function send_addtocart_request(item_id, properties={}) {
 }
 
 /**
+ * Method for sending checkout events
+ * @param {String} item_id 
+ * @param {Object} properties 
+ */
+function send_checkout_request(itemList=[], properties={}) {
+    var request_params = {
+        'item_list': itemList,
+        'properties': properties,
+        'stacc_id': stacc_id,
+        'website': website,
+        'currency':'EUR',
+    };
+    send_api_request(request_params, 'send_purchase');
+}
+
+/**
  * 
  * @param {Object} request_params 
  * @param {String} endpoint 
