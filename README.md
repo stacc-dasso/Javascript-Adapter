@@ -15,3 +15,15 @@ Requirements:
 
 In project root folder run `scrapy crawl magento`  
 To save data to .csv file run `scrapy crawl magento -o items.csv -t csv`
+
+### Test execution
+Requirements:
+* Python 3+
+* Selenium plugin
+* Chrome webdriver in folder 'C:\webdrivers\chromedriver.exe'
+* Selenium webdriver that you can get here https://www.seleniumhq.org/download/ (should be also in webdrivers folder)
+
+In project test folder run `python ui-tests.py`
+
+
+
