@@ -1,9 +1,10 @@
 var username = 'testuser';
 var password = '41366860726384';
-var api_url = document.location.origin+":5678/api/v2/";
+var api_url = "http://104.248.248.147"+":5678/api/v2/";
 var stacc_id = "1234567";
 var website = "local.magento";
 
+var unsent_requests = []
 var recs = {}
 
 /**
@@ -79,13 +80,45 @@ function send_api_request(request_params,endpoint) {
     request.open('POST', api_url+endpoint, true);
     request.setRequestHeader("Authorization", "Basic " + btoa(username+":"+password));
 
-    request.onload = function () {
-        if (endpoint === 'get_recs') {
-            recs = JSON.parse(this.response);
-        };
-        return this.response;
-    }
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status == 200) {
+            if (endpoint === 'get_recs') {
+                recs = JSON.parse(request.response);
+            };
 
+            reqs = JSON.parse(localStorage.getItem('unsent_requests'));
+            
+            if (reqs.length > 0) {
+                var errorRequest = new XMLHttpRequest();
+                errorRequest.open('POST', api_url+'send_error_log', true)
+                errorRequest.setRequestHeader("Authorization", "Basic " + btoa(username+":"+password));
+                params = {
+                    'stacc_id':stacc_id,
+                    'website':website,
+                    'log_message':"There was a problem with sending recorded events."
+                }
+                errorRequest.send(JSON.stringify(params));
+                
+                for (var i = 0; i < reqs.length; i++) {
+                    var obj = reqs[i];
+                    var req = new XMLHttpRequest();
+                    req.open('POST', api_url+obj.endpoint, true);
+                    req.setRequestHeader("Authorization", "Basic " + btoa(username+":"+password));
+                    req.send(obj.params);
+                }
+                var a = []
+                localStorage.setItem('unsent_requests',JSON.stringify(a));
+            }
+        } else if (request.readyState === 4) {
+            var a = []
+            a = JSON.parse(localStorage.getItem('unsent_requests'));
+            
+            a.push({'params':request_params,
+                    'endpoint':endpoint});
+
+            localStorage.setItem('unsent_requests',JSON.stringify(a));
+        }
+    }
     request.send(JSON.stringify(request_params));
 }
 
