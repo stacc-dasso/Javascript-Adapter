@@ -8,9 +8,16 @@ function recommender_box(item_id) {
 }
 
 function buildBox() {
+	
     var div_element = document.createElement("DIV");
     div_element.setAttribute("class","recommender_box");
     div_element.setAttribute("id","recommender_box_1");
+	
+	// If there was a problem with getting recommended products or they don't exist then return function without creating box
+	if (Object.keys(recs).length == 0) {
+		box_node = div_element;
+		return;
+	}
 
     var box_title = document.createElement("h2");
     box_title.appendChild(document.createTextNode("Recommended products"));
