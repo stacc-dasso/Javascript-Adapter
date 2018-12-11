@@ -79,18 +79,6 @@ class LoginTest(unittest.TestCase):
         logInButton = WebDriverWait(driver, 10).until(lambda driver: driver.find_element_by_id('send2'))
         logInButton.click()
 
-        manTab = WebDriverWait(driver, 10).until(lambda driver: driver.find_element_by_link_text('MEN'))
-        manTab.click()
-
-        product = WebDriverWait(driver, 10).until(lambda driver: driver.find_element_by_link_text('PLAID COTTON SHIRT'))
-        product.click()
-
-        color = WebDriverWait(driver, 10).until(lambda driver: driver.find_element_by_id('swatch17'))
-        color.click()
-
-        size = WebDriverWait(driver, 10).until(lambda driver: driver.find_element_by_link_text('S'))
-        size.click()
-
         with urllib.request.urlopen(self.logsURL) as url:
             logs = url.read().decode('utf-8')
         assert '"event_type": "add_to_cart"' in logs
