@@ -1,0 +1,8 @@
+language: python
+python:
+  - "3.6"
+cache: pip
+install:
+  - pip install -U selenium
+script:
+  - python test/ui-tests.py

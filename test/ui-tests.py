@@ -1,4 +1,5 @@
 import unittest
+import urllib.request
 
 from selenium import webdriver
 
@@ -8,8 +9,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 class LoginTest(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome('C:\webdrivers\chromedriver.exe')
+        self.driver = webdriver.Chrome('chromedriver.exe')
         self.driver.get("http://178.62.113.8/")
+        self.logsURL = "http://104.248.248.147/log.txt"
 
     def test_typeToSearchBar(self):
         driver = self.driver
@@ -22,6 +24,10 @@ class LoginTest(unittest.TestCase):
         searchField.send_keys(searchText)
         searchField.submit()
 
+        with urllib.request.urlopen(self.logsURL) as url:
+            logs = url.read().decode('utf-8')
+        assert '"event_type": "search"' in logs
+
     def test_goToAccessories(self):
         driver = self.driver
         linkName = 'ACCESSORIES'
@@ -31,6 +37,10 @@ class LoginTest(unittest.TestCase):
 
         accessoriesTab.click()
 
+        with urllib.request.urlopen(self.logsURL) as url:
+            logs = url.read().decode('utf-8')
+        assert '"runid": "test_run"' in logs
+
     def test_openProduct(self):
         driver = self.driver
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -39,6 +49,11 @@ class LoginTest(unittest.TestCase):
         productField = WebDriverWait(driver, 10).until(lambda driver: driver.find_element_by_link_text(productName))
 
         productField.click()
+
+        with urllib.request.urlopen(self.logsURL) as url:
+            logs = url.read().decode('utf-8')
+        assert '"event_type": "view_item"' in logs
+        assert '"item_id": "425"' in logs
 
     def test_logIn_addProductToCart(self):
         driver = self.driver
@@ -74,6 +89,12 @@ class LoginTest(unittest.TestCase):
 
         size = WebDriverWait(driver, 10).until(lambda driver: driver.find_element_by_link_text('S'))
         size.click()
+
+        with urllib.request.urlopen(self.logsURL) as url:
+            logs = url.read().decode('utf-8')
+        assert '"event_type": "add_to_cart"' in logs
+        assert '"item_id": "421"' in logs
+        assert '"item_id": "408"' in logs
 
     def tearDown(self):
         self.driver.quit()

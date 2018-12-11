@@ -17,8 +17,8 @@ class MagentoLoader(ItemLoader):
 
 class MagentoSpider(CrawlSpider):
     name = "magento"
-    allowed_domains = ["local.magento"]
-    start_urls = ["http://local.magento"]
+    allowed_domains = ["178.62.113.8"]
+    start_urls = ["http://178.62.113.8"]
 
     rules = [
         Rule(LinkExtractor(restrict_xpaths="//nav//a"), follow=True),

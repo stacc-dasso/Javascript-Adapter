@@ -10,6 +10,7 @@ from scrapy.exceptions import DropItem
 from scraper import settings
 from scrapy import log
 
+
 class MagentoPipeline(object):
 
     def __init__(self):
@@ -20,7 +21,6 @@ class MagentoPipeline(object):
         db = connection[settings['MONGODB_DB']]
         self.collection = db[settings['MONGODB_COLLECTION']]
 
-    # TODO 3rd iteration: Save data to MongoDB
     def process_item(self, item, spider):
         valid = True
         for data in item:
