@@ -17,6 +17,7 @@ install:
   - rm ~/chromedriver_linux64.zip
   - sudo mv -f ~/chromedriver /usr/local/share/
   - sudo chmod +x /usr/local/share/chromedriver
+  - sudo chmod +x /home/travis/build/stacc-dasso/Javascript-Adapter/test/chromedriver
   - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
 before_script:
   - "export DISPLAY=:99.0"
