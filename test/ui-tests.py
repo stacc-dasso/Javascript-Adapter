@@ -1,15 +1,20 @@
+import os
 import unittest
 import urllib.request
 
 from selenium import webdriver
-
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 
 
 class LoginTest(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Chrome('chromedriver.exe')
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--disable-gpu")
+        chrome_options.binary_location = '/usr/local/bin/chromedriver'
+        self.driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"), chrome_options=chrome_options)
         self.driver.get("http://178.62.113.8/")
         self.logsURL = "http://104.248.248.147/log.txt"
 
