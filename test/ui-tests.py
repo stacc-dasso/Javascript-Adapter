@@ -82,9 +82,6 @@ class LoginTest(unittest.TestCase):
         manTab = WebDriverWait(driver, 10).until(lambda driver: driver.find_element_by_link_text('MEN'))
         manTab.click()
 
-        shirtTab = WebDriverWait(driver, 10).until(lambda driver: driver.find_element_by_link_text('SHIRTS'))
-        shirtTab.click()
-
         product = WebDriverWait(driver, 10).until(lambda driver: driver.find_element_by_link_text('PLAID COTTON SHIRT'))
         product.click()
 
