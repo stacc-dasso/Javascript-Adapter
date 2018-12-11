@@ -19,7 +19,7 @@ class LoginTest(unittest.TestCase):
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.binary_location = '/usr/local/bin/chromedriver'
-        self.driver = webdriver.Chrome(executable_path=os.path.abspath("test/chromedriver"), chrome_options=chrome_options)
+        self.driver = webdriver.Chrome(chrome_options=chrome_options)
         self.driver.get("http://178.62.113.8/")
         self.logsURL = "http://104.248.248.147/log.txt"
 
