@@ -11,8 +11,13 @@ class LoginTest(unittest.TestCase):
 
     def setUp(self):
         chrome_options = Options()
+        chrome_options.add_argument("start-maximized")
+        chrome_options.add_argument("disable-infobars")
         chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--disable-extensions")
         chrome_options.add_argument("--disable-gpu")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--no-sandbox")
         chrome_options.binary_location = '/usr/local/bin/chromedriver'
         self.driver = webdriver.Chrome(executable_path=os.path.abspath("test/chromedriver"), chrome_options=chrome_options)
         self.driver.get("http://178.62.113.8/")
